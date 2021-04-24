@@ -1,4 +1,6 @@
-Django
-djangorestframework
-django-cors-headers
-drf-extensions
+django>=3.2
+django-cors-headers>=3.7.0
+djangorestframework>=3.12.4
+drf-extensions>=0.7.0
+gunicorn
+django-heroku
