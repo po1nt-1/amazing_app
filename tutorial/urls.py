@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework_extensions.routers import ExtendedDefaultRouter
@@ -13,8 +15,10 @@ switch_router = SwitchDetailRouter()
 router = ExtendedDefaultRouter()
 user_route = router.register(r'users', UserViewSet)
 user_route.register(r'tweets', UserTweetsViewSet, 'user-tweets', ['username'])
-user_route.register(r'follows', UserFollowsViewSet, 'user-follows', ['username'])
-user_route.register(r'followed', UserFollowedViewSet, 'user-followers', ['username'])
+user_route.register(r'follows', UserFollowsViewSet,
+                    'user-follows', ['username'])
+user_route.register(r'followed', UserFollowedViewSet,
+                    'user-followers', ['username'])
 router.register(r'tweets', TweetViewSet)
 router.register(r'feed', FeedViewSet)
 switch_router.register(r'follow', FollowViewSet)
@@ -27,4 +31,4 @@ urlpatterns = [
     path('v1/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
