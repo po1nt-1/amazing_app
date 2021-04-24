@@ -1,5 +1,4 @@
 from django.contrib.auth.models import User
-from django.http import response
 from django.test import TestCase
 from tutorial.quickstart.models import Follow
 

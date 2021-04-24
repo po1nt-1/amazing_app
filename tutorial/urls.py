@@ -10,7 +10,7 @@ from tutorial.quickstart.views import (FeedViewSet, FollowViewSet,
                                        UserFollowsViewSet, UserTweetsViewSet,
                                        UserViewSet)
 
-switch_router = SwitchDetailRouter()
+switch_detail_router = SwitchDetailRouter()
 
 router = ExtendedDefaultRouter()
 user_route = router.register(r'users', UserViewSet)
@@ -21,13 +21,13 @@ user_route.register(r'followed', UserFollowedViewSet,
                     'user-followers', ['username'])
 router.register(r'tweets', TweetViewSet)
 router.register(r'feed', FeedViewSet)
-switch_router.register(r'follow', FollowViewSet)
+switch_detail_router.register(r'follow', FollowViewSet)
 
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('v1/', include(switch_router.urls)),
+    path('v1/', include(switch_detail_router.urls)),
     path('v1/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))

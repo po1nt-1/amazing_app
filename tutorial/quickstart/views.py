@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import viewsets, mixins
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import GenericViewSet, ModelViewSet, ReadOnlyModelViewSet
 from rest_framework.permissions import IsAuthenticated
 
 from tutorial.quickstart.models import Tweet, Follow
@@ -23,14 +23,11 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     lookup_field = 'username'
 
 
-class TweetViewSet(
-    mixins.ListModelMixin,
-    viewsets.GenericViewSet,
-):
+class TweetViewSet(ModelViewSet):
     """
     API endpoint that allows tweets to be viewed or edited.
     """
-    queryset = Tweet.objects.all()
+    queryset = Tweet.objects
     serializer_class = TweetSerializer
     permission_classes = [IsTweetAuthorOrReadOnly]
 
